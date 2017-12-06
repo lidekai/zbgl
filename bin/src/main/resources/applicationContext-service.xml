@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd  
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd  
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd" 
+	default-lazy-init="true">
+	
+	<!-- 用户 -->
+	<bean id="userService" class="com.kington.zbgl.service.system.UserServiceImpl"></bean>
+	 
+	<!-- 角色   --> 
+	<bean id="roleService" class="com.kington.zbgl.service.system.RoleServiceImpl" init-method="loadPath" lazy-init="false"></bean>
+	 
+	<!-- 字典     -->
+	<bean id="dictService" class="com.kington.zbgl.service.system.DictServiceImpl" ></bean>
+	
+	<!-- 菜单 -->  
+	<bean id="functionService" class="com.kington.zbgl.service.system.FunctionServiceImpl"></bean>
+	
+	<!-- 日志 -->
+	<bean id="logService" class="com.kington.zbgl.service.system.LogServiceImpl"></bean>
+	
+	<!-- 登录信息表 -->
+	<bean id="loginUserService" class="com.kington.zbgl.service.system.LoginUserServiceImpl"></bean> 
+	<bean id="seqService" class="com.kington.zbgl.service.system.SeqServiceImpl"></bean>
+	
+</beans>
+
