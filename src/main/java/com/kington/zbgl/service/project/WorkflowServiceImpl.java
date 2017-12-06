@@ -11,20 +11,13 @@ public class WorkflowServiceImpl extends BaseServiceImpl<Workflow,WorkflowVO> im
 
 	@Override
 	protected String getQueryStr(WorkflowVO vo) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected void setQueryParm(Query query, WorkflowVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void setQueryParm(Query query, WorkflowVO vo) throws Exception {}
 
 	@Override
-	protected void switchVO2PO(WorkflowVO vo, Workflow po) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void switchVO2PO(WorkflowVO vo, Workflow po) throws Exception {}
 
 }
