@@ -1,0 +1,13 @@
+.inputSoming{
+	margin-bottom: 2px;
+}
+.fText{
+	margin-bottom: 4px;
+}
+.btn-add,.btn-upload{
+	float: right;
+	margin-top: -1.3%;
+}
+.editWorkflow,.eyeWorkflow{
+	margin-right: 20px;
+}
