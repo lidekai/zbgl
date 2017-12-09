@@ -12,8 +12,11 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd" 
 	default-lazy-init="true">
+	<!-- 流程定义管理Service层 -->
+	<bean id="workflowService" class="com.kington.zbgl.service.project.WorkflowServiceImpl"></bean>
+	
 	<!-- 流程定义管理 -->
-	<bean id="WorkflowService" class="com.kington.zbgl.service.project.WorkflowServiceImpl"></bean>
+	<bean id="workflowDao" class="com.kington.zbgl.dao.project.WorkflowDaoImpl"></bean>
 	
 	<!-- 用户 -->
 	<bean id="userService" class="com.kington.zbgl.service.system.UserServiceImpl"></bean>

@@ -104,6 +104,14 @@
         </div>
 
 	</div>
+	
+	<!-- 隐藏映射后台的请求链接 -->
+	<div style="display: none;">
+		<!-- 获取工作流程数据 -->
+		<input type="hidden" id="getWorkflowList" value="<c:url value='/project/workflow/getWorkflow.jhtml'/>">
+		<!-- 删除工作流程 -->
+		<input type="hidden" id="delectWorkflowList" value="<c:url value='/project/workflow/delectWorkflow.jhtml'/>">
+	</div>
 	<!-- Mainly scripts -->
 	<script src="<c:url value='/project/js/jquery-3.1.1.min.js'/>"></script>
 	<script src="<c:url value='/project/js/bootstrap.min.js'/>"></script>

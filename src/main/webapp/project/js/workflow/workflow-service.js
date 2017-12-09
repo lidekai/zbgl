@@ -68,7 +68,7 @@
             	for(var i=0;i<getWorkflowData.length;i++){
 		            	var createTr =document.createElement("tr");
 		            	createTr.setAttribute("class","gradeX");
-		            	createTr.setAttribute("value",getWorkflowData[i].workflowId);
+		            	createTr.setAttribute("value",getWorkflowData[i].id);
 
 		            	var createTdFirst=document.createElement("td");
 		            	createTdFirst.setAttribute("class","text-center");
@@ -129,10 +129,10 @@
 				$("#eyeWorkflow > div > div > div.modal-header > h4").empty('');
 				$("#eyeWorkflow > div > div > div.modal-header > small").empty('');
 				$("#vertical-timeline").empty('');
-				var parentWorkflowId=$(this).parent().parent().attr("value");
+				var parentid=$(this).parent().parent().attr("value");
 				var backgroundColor=new Array("blue-bg","navy-bg","lazur-bg","yellow-bg","red-bg","black-bg");
 				for(var i=0;i<getWorkflowData.length;i++){
-					if(parentWorkflowId==getWorkflowData[i].workflowId){
+					if(parentid==getWorkflowData[i].id){
 						$("#eyeWorkflow > div > div > div.modal-header > h4").html(getWorkflowData[i].workflowName);
 						$("#eyeWorkflow > div > div > div.modal-header > small").html(getWorkflowData[i].nodeDescription);
 						var tgc=0;
@@ -180,17 +180,17 @@
 				var nodeNum;
 				var t=1;
 				for(var i=0;i<getWorkflowData.length;i++){
-					if(parentId==getWorkflowData[i].workflowId){
+					if(parentId==getWorkflowData[i].id){
 						var childNum=getWorkflowData[i].node.length==0?"div":"div:nth-child("+t+")";
 						$("#workflow > "+childNum+" > div > input").val(getWorkflowData[i].workflowName);
-						$("#workflow > "+childNum+" > div > input").attr("text",getWorkflowData[i].workflowId)
+						$("#workflow > "+childNum+" > div > input").attr("text",getWorkflowData[i].id)
 						$("#workflow > "+childNum+"> textarea").val(getWorkflowData[i].nodeDescription);
 						for(var j=0;j<getWorkflowData[i].node.length;j++){
 							$(".addInput").click();
 							t++;
 							var child="div:nth-child("+t+")";
 							$("#workflow > "+child+" > div > input").val(getWorkflowData[i].node[j].workflowName);
-							$("#workflow > "+child+" > div > input").attr("text",getWorkflowData[i].node[j].workflowId);
+							$("#workflow > "+child+" > div > input").attr("text",getWorkflowData[i].node[j].id);
 							$("#workflow > "+child+"> textarea").val(getWorkflowData[i].node[j].nodeDescription);
 						}
 					}
@@ -220,12 +220,12 @@
 				var num=0;
 				$(".inputSoming").each(function(){
 					if(num==0){
-						setWorkflowData.workflowId=$(this).find('input').attr("text");
+						setWorkflowData.id=$(this).find('input').attr("text");
 						setWorskflowData.workflowName=$(this).find('input').val();
 						setWorkflowData.nodeDescription=$(this).find('textarea').val();
 					}else{
-						var nodeWorkflowData={"workflowId":"","workflowName":"","nodeDescription":""}
-						nodeWorkflowData.workflowId=$(this).find('input').attr("text");
+						var nodeWorkflowData={"id":"","workflowName":"","nodeDescription":""}
+						nodeWorkflowData.id=$(this).find('input').attr("text");
 						nodeWorkflowData.workflowName=$(this).find('input').val();
 						nodeWorkflowData.nodeDescription=$(this).find('textarea').val();
 						setWorkflowData.node[num]=nodeWorkflowData;
@@ -236,28 +236,7 @@
 		},
 		delectWorkflow:function(){//删除数据
 			$("#dataTableWorkflow").on("click",".delectWorkflow",function(){
-				$(this).parent().parent().remove();
-				var l=$("#dataTableWorkflow > tr").length;
-				if(l==0){
-				var getDiv = document.getElementById( "dataTableWorkflow");
-
-		        var createTr =document.createElement("tr");
-		        createTr.setAttribute("class","odd");
-
-		        var createTd=document.createElement("td");
-		        createTd.setAttribute("class","dataTables_empty");
-		        createTd.setAttribute("valign","top");
-		        createTd.setAttribute("colspan","8");
-		        createTd.innerHTML="No data available in table";
-		        createTr.appendChild(createTd);
-
-		        getDiv.appendChild(createTr);
-
-		        $("#DataTables_Table_0_paginate").remove();
-		        $("#DataTables_Table_0_wrapper > div:nth-child(3)").remove();
-		        $("#DataTables_Table_0_info").remove();
-		        $("#DataTables_Table_0_filter").remove();
-				}
+				$(this).parent().parent().attr("value");
 			})
 		}
 	})
