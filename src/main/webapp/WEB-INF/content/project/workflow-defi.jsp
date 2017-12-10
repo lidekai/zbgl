@@ -29,20 +29,8 @@
 		                </button>
 
 	                </div>
-	                <div class="panel-body">
-						<table class="table table-striped table-bordered table-hover dataTables-example" >
-                    		<thead>
-			                    <tr>
-			                        <th class="text-center">流程名称</th>
-			                        <th class="text-center">流程个数</th>
-			                        <th class="text-center">操作</th>
-			                    </tr>
-                   			</thead>
-                   			<tbody id="dataTableWorkflow">
-
-                    		</tbody>
-                    	</table>
-	                </div>
+	                <!-- 表格数据 -->
+	                <div class="panel-body" id="dataTableWorkflow"></div>
 	            </div>
 	        </div>
 	    	<!--流程定义-->
@@ -122,7 +110,6 @@
     <!-- Sweet alert -->
     <script src="<c:url value='/project/js/plugins/sweetalert/sweetalert.min.js'/>"></script>
 
-    <script src="<c:url value='/project/js/workflow/workflow-data.js'/>"></script>
     <script src="<c:url value='/project/js/workflow/workflow-service.js'/>"></script>
 </body>
 </html>

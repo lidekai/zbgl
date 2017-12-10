@@ -16,9 +16,7 @@ public class WorkflowServiceImpl implements WorkflowService{
 	private WorkflowDao workflowDao;
 	
 	@Override
-	public void getWorkflowList() throws Exception{
-		System.out.println("11111111");
-		
+	public void getWorkflowList() throws Exception{		
 		JSONObject getWorkflowData =new JSONObject();
 		//获取父的数组
 		List<Workflow> parentList = workflowDao.getParentList();
@@ -27,7 +25,7 @@ public class WorkflowServiceImpl implements WorkflowService{
 		for(int i=0;i<parentList.size();i++){
 			JSONObject parentJson =JSONObject.fromObject(parentList.get(i));
 			
-			List<Workflow> childList=workflowDao.getChildList(parentList.get(i).getId());
+			List<Workflow> childList=workflowDao.getChildListById(parentList.get(i).getId());
 			JSONArray childArray=new JSONArray();
 			for(int j=0;j<childList.size();j++){
 				JSONObject childJson =JSONObject.fromObject(childList.get(i));
@@ -38,6 +36,18 @@ public class WorkflowServiceImpl implements WorkflowService{
 		}
 		 PrintWriter out = ServletActionContext.getResponse().getWriter();
 		 out.print(parentArray.toString());
+	}
+
+	@Override
+	public void delectWorkflowById(Long id) throws Exception {
+		List<Long> childList=workflowDao.getChildIdsById(id);
+		childList.add(id);
+		String idsList=String.valueOf(childList);
+		String ids=idsList.substring(1, idsList.length()-1);
+		workflowDao.delectParentListById(id);
+		workflowDao.delectWorkflowListByIds(ids);
+		PrintWriter out = ServletActionContext.getResponse().getWriter();
+		out.print("删除成功！");
 	}
 
 }

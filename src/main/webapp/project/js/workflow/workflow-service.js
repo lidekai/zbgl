@@ -1,5 +1,22 @@
 (function($){
 	$.extend({
+		initData:function(){
+			$.ajax({
+				type : "POST",
+				async:false,
+				url:$("#getWorkflowList").val(),
+				dataType : "json",
+				cache:false,
+			    beforeSend :function(xmlHttp){ 
+			         xmlHttp.setRequestHeader("If-Modified-Since","0"); 
+			         xmlHttp.setRequestHeader("Cache-Control","no-cache");
+			    },
+				success:function(data){
+				    	getWorkflowData=data;
+				    	$.dataTableWorkflow();
+				}
+			})
+		},
 		addInputChild:function(){//新增子流程
 			$(".addInput").click(function(){
 	            var getDiv = document.getElementById( "workflow");
@@ -65,6 +82,32 @@
 		},
 		dataTableWorkflow:function(){//流程的数据展现
 				var getDiv = document.getElementById( "dataTableWorkflow");
+				
+				var createTable =document.createElement("table");
+				createTable.setAttribute("class","table table-striped table-bordered table-hover dataTables-example");
+				
+				var createThead =document.createElement("thead");
+				var createTr =document.createElement("tr");
+				
+				var createThFirst =document.createElement("th");
+				createThFirst.setAttribute("class","text-center");
+				createThFirst.innerHTML="流程名称";
+				createTr.appendChild(createThFirst);
+				
+				var createThSecond =document.createElement("th");
+				createThSecond.setAttribute("class","text-center");
+				createThSecond.innerHTML="流程个数";
+				createTr.appendChild(createThSecond);
+				
+				var createThThird =document.createElement("th");
+				createThThird.setAttribute("class","text-center");
+				createThThird.innerHTML="操作";
+				createTr.appendChild(createThThird);
+				
+				createThead.appendChild(createTr);
+				createTable.appendChild(createThead);
+				
+				var createTbody =document.createElement("tbody");
             	for(var i=0;i<getWorkflowData.length;i++){
 		            	var createTr =document.createElement("tr");
 		            	createTr.setAttribute("class","gradeX");
@@ -116,11 +159,15 @@
 
 		            	createTr.appendChild(createTdThird);
 
-		            	getDiv.appendChild(createTr);
+		            	createTbody.appendChild(createTr);
             	}
+            	
+            	createTable.appendChild(createTbody);
+            	getDiv.appendChild(createTable);
+            	
 	           	$('.dataTables-example').DataTable({
-	                pageLength: 25,
-	                responsive: true,
+	                pageLength: 10,
+	                responsive: true
 	            });
 		},
 		showWorkflowALL:function(){//模态框展现所有数据
@@ -236,17 +283,53 @@
 		},
 		delectWorkflow:function(){//删除数据
 			$("#dataTableWorkflow").on("click",".delectWorkflow",function(){
-				$(this).parent().parent().attr("value");
+				var id=$(this).parent().parent().attr("value");
+				$.addNewWorkflow();
+			    swal({
+			        title: "确定要删除吗?",
+			        text: "温馨提示：删除后数据不可恢复!",
+			        type: "warning",
+			        showCancelButton: true,
+			        confirmButtonColor: "#DD6B55",
+			        confirmButtonText: "YES!",
+			        closeOnConfirm: false
+			    }, 
+			    function () {
+			    	$.delectWorkflowById(id);
+			    });
+				
 			})
+		},
+		delectWorkflowById:function(id){
+			$.ajax({
+				type : "POST",
+				async:false,
+	            data : {"id":id},
+				url:$("#delectWorkflowList").val(),
+				dataType : "text",
+				cache:false,
+			    beforeSend :function(xmlHttp){ 
+			         xmlHttp.setRequestHeader("If-Modified-Since","0"); 
+			         xmlHttp.setRequestHeader("Cache-Control","no-cache");
+			    },
+				success:function(data){
+					if("删除成功！"==data){
+						swal("已删除!", "成功删除！", "success");
+						$("#dataTableWorkflow").empty('');
+						$.initData();
+					}
+				}
+			})			
 		}
 	})
 })(jQuery)
 
 $(document).ready(function(){
+	var getWorkflowData;
+	$.initData();
 	$.addInputChild();
 	$.delectChild();
 	$.fileTextEdit();
-	$.dataTableWorkflow();
 	$.showWorkflowALL();
 	$.editWorkflowALL();
 	$.addNewWorkflow();

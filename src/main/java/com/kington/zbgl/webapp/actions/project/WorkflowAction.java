@@ -1,7 +1,10 @@
 package com.kington.zbgl.webapp.actions.project;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import com.kington.zbgl.service.project.WorkflowService;
 import com.kington.zbgl.webapp.actions.BaseAction;
 
@@ -31,5 +34,9 @@ public class WorkflowAction extends BaseAction{
 	/**
 	 * 删除工作流程数据
 	 */
-
+	public void delectWorkflow() throws Exception {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		System.out.println(id);
+		workflowService.delectWorkflowById(Long.parseLong(id));
+	}
 }
